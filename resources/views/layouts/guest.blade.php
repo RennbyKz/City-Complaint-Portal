@@ -12,11 +12,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.5.0/css/flag-icons.min.css">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        <x-locale-loading-overlay />
+
         <div class="min-h-screen grid lg:grid-cols-2 bg-gray-50 dark:bg-gray-900">
             <!-- Brand panel -->
             <div class="relative hidden lg:flex flex-col justify-between overflow-hidden p-12 text-white bg-cover bg-center" style="background-image: url('{{ asset('images/background.jpg') }}')">

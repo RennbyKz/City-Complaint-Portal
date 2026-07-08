@@ -29,5 +29,6 @@
     "Reset Password": "စကားဝှက် ပြန်လည်သတ်မှတ်ရန်",
     "This is a secure area of the application. Please confirm your password before continuing.": "၎င်းသည် အက်ပလီကေးရှင်း၏ လုံခြုံသောနေရာဖြစ်ပါသည်။ ဆက်လက်မလုပ်ဆောင်မီ သင့်စကားဝှက်ကို အတည်ပြုပါ။",
     "Confirm": "အတည်ပြုမည်",
-    "Toggle theme": "အသွင်အပြင် ပြောင်းရန်"
+    "Toggle theme": "အသွင်အပြင် ပြောင်းရန်",
+    "Toggle language": "ဘာသာစကား ပြောင်းရန်"
 }

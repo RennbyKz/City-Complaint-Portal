@@ -1,24 +1,20 @@
-@props(['variant' => 'default'])
-
 @php
-    $base = $variant === 'onDark'
-        ? 'text-white/70 hover:text-white'
-        : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100';
-
-    $activeBase = $variant === 'onDark'
-        ? 'bg-white/15 text-white'
-        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100';
+    $isMy = app()->getLocale() === 'my';
+    $target = $isMy ? 'en' : 'my';
 @endphp
 
-<div class="inline-flex items-center gap-0.5 p-0.5 rounded-full {{ $variant === 'onDark' ? 'bg-white/10' : 'bg-gray-100/70 dark:bg-gray-700/50' }}">
-    <a href="{{ route('locale.switch', 'my') }}"
-        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition {{ app()->getLocale() === 'my' ? $activeBase : $base }}">
-        <span aria-hidden="true">🇲🇲</span>
-        <span>MY</span>
-    </a>
-    <a href="{{ route('locale.switch', 'en') }}"
-        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition {{ app()->getLocale() === 'en' ? $activeBase : $base }}">
-        <span aria-hidden="true">🇬🇧</span>
-        <span>EN</span>
-    </a>
-</div>
+<a href="{{ route('locale.switch', $target) }}"
+   onclick="document.getElementById('locale-loading-overlay')?.classList.remove('hidden')"
+   class="inline-flex items-center gap-2 select-none group"
+   aria-label="{{ __('Toggle language') }}">
+   
+    <span class="text-xs font-bold tracking-wide transition-colors {{ ! $isMy ? 'text-gray-800 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500' }}">EN</span>
+
+    <span class="relative inline-flex h-7 w-14 shrink-0 items-center rounded-full bg-gray-200 dark:bg-gray-700 ring-1 ring-inset ring-black/5">
+        <span class="absolute left-0.5 top-1/2 -translate-y-1/2 h-6 w-6 rounded-full overflow-hidden shadow ring-1 ring-black/10 transition-transform duration-200 ease-out {{ $isMy ? 'translate-x-7' : 'translate-x-0' }}">
+            <span class="fi {{ $isMy ? 'fi-mm' : 'fi-gb' }} block h-full w-full" style="background-size: cover;" aria-hidden="true"></span>
+        </span>
+    </span>
+
+    <span class="text-xs font-bold tracking-wide transition-colors {{ $isMy ? 'text-gray-800 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500' }}">MM</span>
+</a>
