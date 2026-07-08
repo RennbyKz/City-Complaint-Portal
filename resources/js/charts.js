@@ -1,8 +1,14 @@
 import Chart from 'chart.js/auto';
 
-const BAR_COLOR = '#2a78d6';
-const GRID_COLOR = '#e1e0d9';
-const TEXT_COLOR = '#898781';
+function chartColors() {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    return {
+        bar: isDark ? '#3987e5' : '#2a78d6',
+        grid: isDark ? '#2c2c2a' : '#e1e0d9',
+        text: isDark ? '#a8a6a0' : '#898781',
+    };
+}
 
 async function renderCharts() {
     const el = document.getElementById('admin-dashboard-charts');
@@ -10,6 +16,8 @@ async function renderCharts() {
 
     const response = await fetch(el.dataset.chartDataUrl);
     const data = await response.json();
+
+    const { bar: BAR_COLOR, grid: GRID_COLOR, text: TEXT_COLOR } = chartColors();
 
     const commonScales = {
         x: { grid: { color: GRID_COLOR }, ticks: { color: TEXT_COLOR } },

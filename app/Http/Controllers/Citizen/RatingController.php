@@ -15,7 +15,7 @@ class RatingController extends Controller
         $this->authorize('view', $complaint);
 
         abort_unless($complaint->status === ComplaintStatus::Resolved, 422);
-        abort_if($complaint->rating()->exists(), 422, 'ဤတိုင်ကြားစာကို အဆင့်သတ်မှတ်ပြီးဖြစ်ပါသည်။');
+        abort_if($complaint->rating()->exists(), 422, __('ဤတိုင်ကြားစာကို အဆင့်သတ်မှတ်ပြီးဖြစ်ပါသည်။'));
 
         $validated = $request->validate([
             'score' => ['required', 'integer', 'min:1', 'max:5'],
@@ -28,6 +28,6 @@ class RatingController extends Controller
             'comment' => $validated['comment'] ?? null,
         ]);
 
-        return back()->with('status', 'ကျေနပ်မှုအဆင့် သတ်မှတ်ပေးမှု အတွက် ကျေးဇူးတင်ပါသည်။');
+        return back()->with('status', __('ကျေနပ်မှုအဆင့် သတ်မှတ်ပေးမှု အတွက် ကျေးဇူးတင်ပါသည်။'));
     }
 }

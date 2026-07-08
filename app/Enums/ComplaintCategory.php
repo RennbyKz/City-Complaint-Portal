@@ -15,13 +15,13 @@ enum ComplaintCategory: string
     public function label(): string
     {
         return match ($this) {
-            self::Road => 'လမ်းပန်းဆက်သွယ်ရေး',
-            self::Streetlight => 'လမ်းမီးတိုင်',
-            self::Drainage => 'မိလ္လာစနစ်',
-            self::WasteManagement => 'အမှိုက်ပုံ',
-            self::WaterSupply => 'ရေရရှိမှု',
-            self::Electricity => 'လျှပ်စစ်',
-            self::Other => 'အခြား',
+            self::Road => __('လမ်းပန်းဆက်သွယ်ရေး'),
+            self::Streetlight => __('လမ်းမီးတိုင်'),
+            self::Drainage => __('မိလ္လာစနစ်'),
+            self::WasteManagement => __('အမှိုက်ပုံ'),
+            self::WaterSupply => __('ရေရရှိမှု'),
+            self::Electricity => __('လျှပ်စစ်'),
+            self::Other => __('အခြား'),
         };
     }
 }

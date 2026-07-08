@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,22 +6,22 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-100" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        ဒက်ရှ်ဘုတ်
+                        {{ __('ဒက်ရှ်ဘုတ်') }}
                     </x-nav-link>
 
                     @if (Auth::user()->isCitizen())
                         <x-nav-link :href="route('citizen.complaints.index')" :active="request()->routeIs('citizen.complaints.*')">
-                            တိုင်ကြားစာများ
+                            {{ __('တိုင်ကြားစာများ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('citizen.notifications.index')" :active="request()->routeIs('citizen.notifications.*')">
-                            အကြောင်းကြားစာများ
+                            {{ __('အကြောင်းကြားစာများ') }}
                             @php $unread = Auth::user()->unreadNotifications()->count(); @endphp
                             @if ($unread)
                                 <span class="ms-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs rounded-full bg-red-500 text-white">{{ $unread }}</span>
@@ -31,38 +31,41 @@
 
                     @if (Auth::user()->isAdmin())
                         <x-nav-link :href="route('admin.complaints.index')" :active="request()->routeIs('admin.complaints.*')">
-                            တိုင်ကြားစာများ
+                            {{ __('တိုင်ကြားစာများ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.*')">
-                            ဌာနများ
+                            {{ __('ဌာနများ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.officers.index')" :active="request()->routeIs('admin.officers.*')">
-                            ဝန်ထမ်းများ
+                            {{ __('ဝန်ထမ်းများ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.citizens.index')" :active="request()->routeIs('admin.citizens.*')">
-                            ပြည်သူအကောင့်များ
+                            {{ __('ပြည်သူအကောင့်များ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')">
-                            အစီရင်ခံစာ
+                            {{ __('အစီရင်ခံစာ') }}
                         </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isDepartmentOfficer())
                         <x-nav-link :href="route('department.complaints.index')" :active="request()->routeIs('department.complaints.*')">
-                            တာဝန်ရှိ တိုင်ကြားစာများ
+                            {{ __('တာဝန်ရှိ တိုင်ကြားစာများ') }}
                         </x-nav-link>
                         <x-nav-link :href="route('department.ratings.index')" :active="request()->routeIs('department.ratings.*')">
-                            ကျေနပ်မှုအဆင့်
+                            {{ __('ကျေနပ်မှုအဆင့်') }}
                         </x-nav-link>
                     @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
+                <x-locale-switcher />
+                <x-theme-toggle />
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-300 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-100 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -75,7 +78,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            ကိုယ်ရေးအချက်အလက်
+                            {{ __('ကိုယ်ရေးအချက်အလက်') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -85,7 +88,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                ထွက်မည်
+                                {{ __('ထွက်မည်') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -93,8 +96,11 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+            <div class="-me-2 flex items-center gap-2 sm:hidden">
+                <x-locale-switcher />
+                <x-theme-toggle />
+
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -108,42 +114,42 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                ဒက်ရှ်ဘုတ်
+                {{ __('ဒက်ရှ်ဘုတ်') }}
             </x-responsive-nav-link>
 
             @if (Auth::user()->isCitizen())
                 <x-responsive-nav-link :href="route('citizen.complaints.index')" :active="request()->routeIs('citizen.complaints.*')">
-                    တိုင်ကြားစာများ
+                    {{ __('တိုင်ကြားစာများ') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('citizen.notifications.index')" :active="request()->routeIs('citizen.notifications.*')">
-                    အကြောင်းကြားစာများ
+                    {{ __('အကြောင်းကြားစာများ') }}
                 </x-responsive-nav-link>
             @endif
 
             @if (Auth::user()->isAdmin())
-                <x-responsive-nav-link :href="route('admin.complaints.index')" :active="request()->routeIs('admin.complaints.*')">တိုင်ကြားစာများ</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.*')">ဌာနများ</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.officers.index')" :active="request()->routeIs('admin.officers.*')">ဝန်ထမ်းများ</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.citizens.index')" :active="request()->routeIs('admin.citizens.*')">ပြည်သူအကောင့်များ</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')">အစီရင်ခံစာ</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.complaints.index')" :active="request()->routeIs('admin.complaints.*')">{{ __('တိုင်ကြားစာများ') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.*')">{{ __('ဌာနများ') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.officers.index')" :active="request()->routeIs('admin.officers.*')">{{ __('ဝန်ထမ်းများ') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.citizens.index')" :active="request()->routeIs('admin.citizens.*')">{{ __('ပြည်သူအကောင့်များ') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.reports.index')" :active="request()->routeIs('admin.reports.*')">{{ __('အစီရင်ခံစာ') }}</x-responsive-nav-link>
             @endif
 
             @if (Auth::user()->isDepartmentOfficer())
-                <x-responsive-nav-link :href="route('department.complaints.index')" :active="request()->routeIs('department.complaints.*')">တာဝန်ရှိ တိုင်ကြားစာများ</x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('department.ratings.index')" :active="request()->routeIs('department.ratings.*')">ကျေနပ်မှုအဆင့်</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('department.complaints.index')" :active="request()->routeIs('department.complaints.*')">{{ __('တာဝန်ရှိ တိုင်ကြားစာများ') }}</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('department.ratings.index')" :active="request()->routeIs('department.ratings.*')">{{ __('ကျေနပ်မှုအဆင့်') }}</x-responsive-nav-link>
             @endif
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-700">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-100">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    ကိုယ်ရေးအချက်အလက်
+                    {{ __('ကိုယ်ရေးအချက်အလက်') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -153,7 +159,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        ထွက်မည်
+                        {{ __('ထွက်မည်') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

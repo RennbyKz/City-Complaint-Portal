@@ -19,7 +19,7 @@ class EnsureUserIsActive
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('login')->with('status', 'သင့်အကောင့်ကို ဝင်ရောက်ခွင့်မရှိတော့ပါ။');
+            return redirect()->route('login')->with('status', __('သင့်အကောင့်ကို ဝင်ရောက်ခွင့်မရှိတော့ပါ။'));
         }
 
         return $next($request);

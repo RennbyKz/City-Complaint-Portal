@@ -45,7 +45,7 @@ class OfficerController extends Controller
             'status' => UserStatus::Active,
         ]);
 
-        return redirect()->route('admin.officers.index')->with('status', 'ဌာနဝန်ထမ်း အကောင့်အသစ် ဖန်တီးပြီးပါပြီ။');
+        return redirect()->route('admin.officers.index')->with('status', __('ဌာနဝန်ထမ်း အကောင့်အသစ် ဖန်တီးပြီးပါပြီ။'));
     }
 
     public function edit(User $officer): View
@@ -62,6 +62,6 @@ class OfficerController extends Controller
 
         $officer->update($validated);
 
-        return redirect()->route('admin.officers.index')->with('status', 'ဌာနဝန်ထမ်း အချက်အလက် ပြင်ဆင်ပြီးပါပြီ။');
+        return redirect()->route('admin.officers.index')->with('status', __('ဌာနဝန်ထမ်း အချက်အလက် ပြင်ဆင်ပြီးပါပြီ။'));
     }
 }

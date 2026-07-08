@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
             'status' => UserStatus::Pending,
         ]);
 
-        return redirect()->route('login')->with('status', 'အကောင့်ဖွင့်ခြင်း တင်သွင်းပြီးပါပြီ — စီမံခန့်ခွဲသူမှ အတည်ပြုပြီးမှ ဝင်ရောက်နိုင်ပါမည်။');
+        return redirect()->route('login')->with('status', __('အကောင့်ဖွင့်ခြင်း တင်သွင်းပြီးပါပြီ — စီမံခန့်ခွဲသူမှ အတည်ပြုပြီးမှ ဝင်ရောက်နိုင်ပါမည်။'));
     }
 }

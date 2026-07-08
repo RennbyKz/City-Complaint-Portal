@@ -21,7 +21,6 @@ class ComplaintResolved extends Notification
         return [
             'complaint_id' => $this->complaint->id,
             'title' => $this->complaint->title,
-            'message' => "သင့်တိုင်ကြားစာ \"{$this->complaint->title}\" ကို ပြင်ဆင်ပြီးစီးပါပြီ။ ကျေနပ်မှုအဆင့် ပေးပါ။",
         ];
     }
 }

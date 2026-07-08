@@ -1,22 +1,26 @@
 <x-guest-layout>
+    <div class="mb-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">{{ __('ဝင်ရောက်မည်') }}</h2>
+    </div>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" value="အီးမေးလ်" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-label for="email" value="{{ __('အီးမေးလ်') }}" />
+            <x-auth-text-input id="email" icon="email" class="mt-1.5" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" value="စကားဝှက်" />
+        <div>
+            <x-input-label for="password" value="{{ __('စကားဝှက်') }}" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-auth-text-input id="password" icon="password" class="mt-1.5"
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
@@ -25,23 +29,28 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="flex items-center justify-between">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">မှတ်ထားမည်</span>
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 text-blue-900 focus:ring-blue-900/30" name="remember">
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('မှတ်ထားမည်') }}</span>
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    စကားဝှက် မေ့နေပါသလား
+                <a class="text-sm text-blue-900 dark:text-blue-400 hover:underline focus:outline-none" href="{{ route('password.request') }}">
+                    {{ __('စကားဝှက် မေ့နေပါသလား') }}
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                ဝင်ရောက်မည်
-            </x-primary-button>
         </div>
+
+        <x-primary-button class="w-full justify-center">
+            {{ __('ဝင်ရောက်မည်') }}
+        </x-primary-button>
+
+        @if (Route::has('register'))
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+                {{ __('အကောင့်မရှိသေးပါသလား') }}
+                <a href="{{ route('register') }}" class="text-blue-900 dark:text-blue-400 font-medium hover:underline">{{ __('အကောင့်ဖွင့်မည်') }}</a>
+            </p>
+        @endif
     </form>
 </x-guest-layout>

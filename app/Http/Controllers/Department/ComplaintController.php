@@ -45,7 +45,7 @@ class ComplaintController extends Controller
 
         $complaint->update(['status' => ComplaintStatus::InProgress]);
 
-        return back()->with('status', 'တိုင်ကြားစာကို ဆောင်ရွက်နေဆဲအဖြစ် ပြောင်းလဲလိုက်ပါပြီ။');
+        return back()->with('status', __('တိုင်ကြားစာကို ဆောင်ရွက်နေဆဲအဖြစ် ပြောင်းလဲလိုက်ပါပြီ။'));
     }
 
     public function resolve(Request $request, Complaint $complaint): RedirectResponse
@@ -66,6 +66,6 @@ class ComplaintController extends Controller
             'resolved_at' => now(),
         ]);
 
-        return back()->with('status', 'တိုင်ကြားစာကို ပြင်ဆင်ပြီးစီးကြောင်း သတ်မှတ်လိုက်ပါပြီ။');
+        return back()->with('status', __('တိုင်ကြားစာကို ပြင်ဆင်ပြီးစီးကြောင်း သတ်မှတ်လိုက်ပါပြီ။'));
     }
 }

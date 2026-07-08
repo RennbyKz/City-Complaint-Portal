@@ -57,7 +57,7 @@ class LoginRequest extends FormRequest
             Auth::logout();
 
             throw ValidationException::withMessages([
-                'email' => 'သင့်အကောင့်ကို ပိတ်ထားပါသည်။ အကြောင်းအရာအတွက် စီမံခန့်ခွဲသူထံ ဆက်သွယ်ပါ။',
+                'email' => __('သင့်အကောင့်ကို ပိတ်ထားပါသည်။ အကြောင်းအရာအတွက် စီမံခန့်ခွဲသူထံ ဆက်သွယ်ပါ။'),
             ]);
         }
 
@@ -65,7 +65,7 @@ class LoginRequest extends FormRequest
             Auth::logout();
 
             throw ValidationException::withMessages([
-                'email' => 'သင့်အကောင့်ကို စီမံခန့်ခွဲသူမှ အတည်ပြုရန် စောင့်ဆိုင်းနေပါသည်။',
+                'email' => __('သင့်အကောင့်ကို စီမံခန့်ခွဲသူမှ အတည်ပြုရန် စောင့်ဆိုင်းနေပါသည်။'),
             ]);
         }
 

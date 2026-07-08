@@ -22,7 +22,6 @@ class ComplaintForwarded extends Notification
             'complaint_id' => $this->complaint->id,
             'title' => $this->complaint->title,
             'department_name' => $this->complaint->department?->name,
-            'message' => "သင့်တိုင်ကြားစာ \"{$this->complaint->title}\" ကို {$this->complaint->department?->name} ဌာနသို့ လွှဲပြောင်းလိုက်ပါပြီ။",
         ];
     }
 }

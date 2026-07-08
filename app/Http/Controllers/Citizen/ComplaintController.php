@@ -49,7 +49,7 @@ class ComplaintController extends Controller
         ]);
 
         return redirect()->route('citizen.complaints.show', $complaint)
-            ->with('status', 'တိုင်ကြားစာ တင်သွင်းပြီးပါပြီ။');
+            ->with('status', __('တိုင်ကြားစာ တင်သွင်းပြီးပါပြီ။'));
     }
 
     public function show(Complaint $complaint): View

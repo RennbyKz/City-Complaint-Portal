@@ -26,7 +26,7 @@ class DepartmentController extends Controller
 
         Department::create($validated);
 
-        return redirect()->route('admin.departments.index')->with('status', 'ဌာနအသစ် ဖန်တီးပြီးပါပြီ။');
+        return redirect()->route('admin.departments.index')->with('status', __('ဌာနအသစ် ဖန်တီးပြီးပါပြီ။'));
     }
 
     public function edit(Department $department): View
@@ -40,6 +40,6 @@ class DepartmentController extends Controller
 
         $department->update($validated);
 
-        return redirect()->route('admin.departments.index')->with('status', 'ဌာန အချက်အလက် ပြင်ဆင်ပြီးပါပြီ။');
+        return redirect()->route('admin.departments.index')->with('status', __('ဌာန အချက်အလက် ပြင်ဆင်ပြီးပါပြီ။'));
     }
 }

@@ -8,6 +8,14 @@ Route::get('/', function () {
     return auth()->check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
 
+Route::get('/locale/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['en', 'my'], true), 404);
+
+    session(['locale' => $locale]);
+
+    return redirect()->back()->cookie('locale', $locale, 60 * 24 * 365);
+})->name('locale.switch');
+
 Route::middleware(['auth', 'active'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

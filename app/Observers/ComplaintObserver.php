@@ -25,7 +25,7 @@ class ComplaintObserver
             StatusLog::create([
                 'complaint_id' => $complaint->id,
                 'status' => $complaint->status,
-                'notes' => "Forwarded to {$complaint->department->name}",
+                'notes' => $complaint->department->name,
                 'changed_by' => auth()->id(),
             ]);
 

@@ -30,27 +30,27 @@ class CitizenController extends Controller
     {
         $citizen->update(['status' => UserStatus::Active]);
 
-        return back()->with('status', "{$citizen->name} ၏ အကောင့်ကို အတည်ပြုလိုက်ပါပြီ။");
+        return back()->with('status', __(':name ၏ အကောင့်ကို အတည်ပြုလိုက်ပါပြီ။', ['name' => $citizen->name]));
     }
 
     public function reject(User $citizen): RedirectResponse
     {
         $citizen->update(['status' => UserStatus::Blocked]);
 
-        return back()->with('status', "{$citizen->name} ၏ အကောင့်ကို ငြင်းပယ်လိုက်ပါပြီ။");
+        return back()->with('status', __(':name ၏ အကောင့်ကို ငြင်းပယ်လိုက်ပါပြီ။', ['name' => $citizen->name]));
     }
 
     public function block(User $citizen): RedirectResponse
     {
         $citizen->update(['status' => UserStatus::Blocked]);
 
-        return back()->with('status', "{$citizen->name} ၏ အကောင့်ကို ပိတ်လိုက်ပါပြီ။");
+        return back()->with('status', __(':name ၏ အကောင့်ကို ပိတ်လိုက်ပါပြီ။', ['name' => $citizen->name]));
     }
 
     public function unblock(User $citizen): RedirectResponse
     {
         $citizen->update(['status' => UserStatus::Active]);
 
-        return back()->with('status', "{$citizen->name} ၏ အကောင့်ကို ပြန်ဖွင့်ပေးလိုက်ပါပြီ။");
+        return back()->with('status', __(':name ၏ အကောင့်ကို ပြန်ဖွင့်ပေးလိုက်ပါပြီ။', ['name' => $citizen->name]));
     }
 }

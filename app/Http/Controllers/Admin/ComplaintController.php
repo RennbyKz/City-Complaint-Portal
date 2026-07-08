@@ -48,6 +48,6 @@ class ComplaintController extends Controller
 
         $complaint->update(['department_id' => $validated['department_id']]);
 
-        return back()->with('status', 'တိုင်ကြားစာကို ဌာနသို့ လွှဲပြောင်းလိုက်ပါပြီ။');
+        return back()->with('status', __('တိုင်ကြားစာကို ဌာနသို့ လွှဲပြောင်းလိုက်ပါပြီ။'));
     }
 }
