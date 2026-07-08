@@ -1,0 +1,34 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">ဌာနဝန်ထမ်း ပြင်ဆင်ရန်</h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <form method="POST" action="{{ route('admin.officers.update', $officer) }}">
+                    @csrf
+                    @method('PUT')
+
+                    <x-input-label for="name" value="အမည်" />
+                    <x-text-input id="name" name="name" class="block mt-1 w-full" :value="old('name', $officer->name)" required autofocus />
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                    <div class="mt-4">
+                        <x-input-label for="department_id" value="ဌာန" />
+                        <select id="department_id" name="department_id" required class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                            @foreach ($departments as $d)
+                                <option value="{{ $d->id }}" @selected(old('department_id', $officer->department_id) == $d->id)>{{ $d->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+                    </div>
+
+                    <div class="flex justify-end mt-6">
+                        <x-primary-button>သိမ်းဆည်းမည်</x-primary-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
