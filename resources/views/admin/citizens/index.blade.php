@@ -43,12 +43,22 @@
                                                 @csrf @method('PATCH')
                                                 <button class="text-green-600 dark:text-green-400 hover:underline">{{ __('အတည်ပြုမည်') }}</button>
                                             </form>
-                                            <form method="POST" action="{{ route('admin.citizens.reject', $citizen) }}" class="inline">
+                                            <form method="POST" action="{{ route('admin.citizens.reject', $citizen) }}" class="inline"
+                                                data-confirm="{{ __(':name ၏ အကောင့်လျှောက်ထားမှုကို ငြင်းပယ်မှာ သေချာပါသလား?', ['name' => $citizen->name]) }}"
+                                                data-confirm-title="{{ __('အကောင့် ငြင်းပယ်ရန်') }}"
+                                                data-confirm-button="{{ __('ငြင်းပယ်မည်') }}"
+                                                data-cancel-button="{{ __('ပယ်ဖျက်မည်') }}"
+                                                data-confirm-icon="warning">
                                                 @csrf @method('PATCH')
                                                 <button class="text-red-600 dark:text-red-400 hover:underline">{{ __('ငြင်းပယ်မည်') }}</button>
                                             </form>
                                         @elseif ($citizen->status->value === 'active')
-                                            <form method="POST" action="{{ route('admin.citizens.block', $citizen) }}" class="inline">
+                                            <form method="POST" action="{{ route('admin.citizens.block', $citizen) }}" class="inline"
+                                                data-confirm="{{ __(':name ၏ အကောင့်ကို ပိတ်မှာ သေချာပါသလား?', ['name' => $citizen->name]) }}"
+                                                data-confirm-title="{{ __('အကောင့် ပိတ်ရန်') }}"
+                                                data-confirm-button="{{ __('ပိတ်မည်') }}"
+                                                data-cancel-button="{{ __('ပယ်ဖျက်မည်') }}"
+                                                data-confirm-icon="warning">
                                                 @csrf @method('PATCH')
                                                 <button class="text-red-600 dark:text-red-400 hover:underline">{{ __('ပိတ်မည်') }}</button>
                                             </form>

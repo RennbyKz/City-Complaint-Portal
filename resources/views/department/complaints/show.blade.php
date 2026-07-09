@@ -49,7 +49,12 @@
             @elseif ($complaint->status->value === 'in_progress')
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">{{ __('ပြင်ဆင်ပြီးစီးကြောင်း တင်ပြရန်') }}</h3>
-                    <form method="POST" action="{{ route('department.complaints.resolve', $complaint) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('department.complaints.resolve', $complaint) }}" enctype="multipart/form-data"
+                        data-confirm="{{ __('ဤတိုင်ကြားစာကို ပြီးစီးကြောင်း သတ်မှတ်မှာ သေချာပါသလား? ပြန်လည်ပြင်ဆင်၍မရတော့ပါ။') }}"
+                        data-confirm-title="{{ __('ပြီးစီးကြောင်း သတ်မှတ်ရန်') }}"
+                        data-confirm-button="{{ __('ပြီးစီးကြောင်း သတ်မှတ်မည်') }}"
+                        data-cancel-button="{{ __('ပယ်ဖျက်မည်') }}"
+                        data-confirm-icon="warning">
                         @csrf
                         @method('PATCH')
                         <x-input-label for="resolution_photo" value="{{ __('သက်သေဓာတ်ပုံ') }}" />

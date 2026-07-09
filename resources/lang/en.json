@@ -141,5 +141,21 @@
     "အားလုံးအတွက် ပွင့်လင်းမြင်သာသော မြို့တော်စီမံခန့်ခွဲမှု": "Transparent city governance for everyone",
     "မူပိုင်ခွင့် ရယူပြီးဖြစ်သည်": "All rights reserved",
     "အကောင့်မရှိသေးပါသလား": "Don't have an account yet?",
-    "အကောင့်ရှိပြီးသားလား": "Already have an account?"
+    "အကောင့်ရှိပြီးသားလား": "Already have an account?",
+    ":name ၏ အကောင့်လျှောက်ထားမှုကို ငြင်းပယ်မှာ သေချာပါသလား?": ":name's registration will be rejected. Are you sure?",
+    "အကောင့် ငြင်းပယ်ရန်": "Reject Account",
+    "ပယ်ဖျက်မည်": "Cancel",
+    ":name ၏ အကောင့်ကို ပိတ်မှာ သေချာပါသလား?": ":name's account will be blocked. Are you sure?",
+    "အကောင့် ပိတ်ရန်": "Block Account",
+    "ဤတိုင်ကြားစာကို ရွေးချယ်ထားသော ဌာနသို့ လွှဲပြောင်းမှာ သေချာပါသလား?": "This complaint will be forwarded to the selected department. Are you sure?",
+    "ဤတိုင်ကြားစာကို ပြီးစီးကြောင်း သတ်မှတ်မှာ သေချာပါသလား? ပြန်လည်ပြင်ဆင်၍မရတော့ပါ။": "This complaint will be marked as resolved. This cannot be undone. Are you sure?",
+    "ပြီးစီးကြောင်း သတ်မှတ်ရန်": "Mark as Resolved",
+    "ခြုံငုံသုံးသပ်ချက်": "Overview",
+    "စာရင်းအင်းများ": "Statistics",
+    "အမြန်လုပ်ဆောင်ချက်များ": "Quick Actions",
+    "ရှင်းလင်းမည်": "Clear filters",
+    "တိုင်ကြားသူ တင်ခဲ့သော ဓာတ်ပုံ": "Photo Submitted by Citizen",
+    "ဓာတ်ပုံ မတင်ခဲ့ပါ": "No photo submitted",
+    "ပြင်ဆင်ပြီးကြောင်း သက်သေဓာတ်ပုံ": "Resolution Proof Photo",
+    "ပြီးစီးခြင်း မရှိသေးပါ": "Not resolved yet"
 }
