@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Support\YangonLocations;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,12 +18,16 @@ class DepartmentController extends Controller
 
     public function create(): View
     {
-        return view('admin.departments.create');
+        return view('admin.departments.create', ['districts' => YangonLocations::districts()]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate(['name' => ['required', 'string', 'max:255']]);
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'district' => ['nullable', 'string', 'max:255'],
+            'township' => ['nullable', 'string', 'max:255'],
+        ]);
 
         Department::create($validated);
 
@@ -31,12 +36,16 @@ class DepartmentController extends Controller
 
     public function edit(Department $department): View
     {
-        return view('admin.departments.edit', ['department' => $department]);
+        return view('admin.departments.edit', ['department' => $department, 'districts' => YangonLocations::districts()]);
     }
 
     public function update(Request $request, Department $department): RedirectResponse
     {
-        $validated = $request->validate(['name' => ['required', 'string', 'max:255']]);
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'district' => ['nullable', 'string', 'max:255'],
+            'township' => ['nullable', 'string', 'max:255'],
+        ]);
 
         $department->update($validated);
 

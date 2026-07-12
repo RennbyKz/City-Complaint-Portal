@@ -26,12 +26,25 @@
                         @endforeach
                     </select>
                 </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">{{ __('အမျိုးအစား') }}</label>
+                    <select name="category_id" class="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg shadow-sm text-sm focus:border-blue-900 focus:ring-blue-900/10">
+                        <option value="">{{ __('အားလုံး') }}</option>
+                        @foreach ($categoryGroups as $group)
+                            <optgroup label="{{ $group->label() }}">
+                                @foreach ($group->categories as $category)
+                                    <option value="{{ $category->id }}" @selected((string) request('category_id') === (string) $category->id)>{{ $category->label() }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
+                </div>
                 <button class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-900 dark:bg-blue-800 text-white text-sm font-medium rounded-lg hover:bg-blue-800 dark:hover:bg-blue-700 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" /></svg>
                     {{ __('စစ်ထုတ်မည်') }}
                 </button>
 
-                @if (request('status') || request('department_id'))
+                @if (request('status') || request('department_id') || request('category_id'))
                     <a href="{{ route('admin.complaints.index') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:underline">{{ __('ရှင်းလင်းမည်') }}</a>
                 @endif
             </form>
@@ -61,8 +74,12 @@
                                     <tr class="group hover:bg-blue-50/60 dark:hover:bg-gray-700/40 transition-colors">
                                         <td class="px-4 py-3">
                                             <a href="{{ route('admin.complaints.show', $complaint) }}">
-                                                @if ($complaint->photo_path)
-                                                    <img src="{{ Storage::url($complaint->photo_path) }}" alt="" class="h-12 w-12 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-600 group-hover:ring-blue-900/40 transition" />
+                                                @if ($complaint->thumbnailPath())
+                                                    <img src="{{ Storage::url($complaint->thumbnailPath()) }}" alt="" class="h-12 w-12 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-600 group-hover:ring-blue-900/40 transition" />
+                                                @elseif ($complaint->hasVideoOnly())
+                                                    <div class="h-12 w-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-400">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-2.834A.75.75 0 0121.5 8.35v7.3a.75.75 0 01-1.03.684L15.75 13.5M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-7.5A2.25 2.25 0 0013.5 6.75h-9A2.25 2.25 0 002.25 9v7.5a2.25 2.25 0 002.25 2.25z" /></svg>
+                                                    </div>
                                                 @else
                                                     <div class="h-12 w-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-300 dark:text-gray-500">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M18 12.75h.008v.008H18v-.008zM4.5 3.75h15a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5V5.25a1.5 1.5 0 011.5-1.5z" /></svg>

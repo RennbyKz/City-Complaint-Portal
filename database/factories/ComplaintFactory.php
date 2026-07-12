@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\ComplaintCategory;
 use App\Enums\ComplaintStatus;
+use App\Models\Category;
 use App\Models\Complaint;
 use App\Models\Department;
 use App\Models\User;
@@ -20,7 +20,7 @@ class ComplaintFactory extends Factory
             'user_id' => User::factory()->citizen()->active(),
             'title' => fake()->sentence(4),
             'description' => fake()->paragraph(),
-            'category' => fake()->randomElement(ComplaintCategory::cases())->value,
+            'category_id' => Category::inRandomOrder()->value('id'),
             'location' => fake()->streetAddress(),
             'status' => ComplaintStatus::Pending->value,
             'created_at' => fake()->dateTimeBetween('-11 months', 'now'),

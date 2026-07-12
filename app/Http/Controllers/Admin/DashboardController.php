@@ -34,13 +34,18 @@ class DashboardController extends Controller
             ->orderBy('month')
             ->get();
 
+        $isEnglish = app()->getLocale() === 'en';
+
         $byCategory = Complaint::query()
-            ->selectRaw('category, COUNT(*) as total')
-            ->groupBy('category')
+            ->join('categories', 'categories.id', '=', 'complaints.category_id')
+            ->join('category_groups', 'category_groups.id', '=', 'categories.category_group_id')
+            ->selectRaw('category_groups.id, category_groups.name, category_groups.name_en, COUNT(*) as total')
+            ->groupBy('category_groups.id', 'category_groups.name', 'category_groups.name_en')
+            ->orderBy('category_groups.id')
             ->get()
             ->map(fn ($row) => [
-                'category' => $row->category->value,
-                'label' => $row->category->label(),
+                'category' => $row->id,
+                'label' => $isEnglish && $row->name_en ? $row->name_en : $row->name,
                 'total' => $row->total,
             ]);
 

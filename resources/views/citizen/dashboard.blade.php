@@ -7,10 +7,24 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <x-stat-card label="{{ __('စောင့်ဆိုင်းဆဲ') }}" :value="$statusCounts['pending'] ?? 0" />
-                <x-stat-card label="{{ __('ဆောင်ရွက်နေဆဲ') }}" :value="$statusCounts['in_progress'] ?? 0" />
-                <x-stat-card label="{{ __('ပြီးစီးပြီ') }}" :value="$statusCounts['resolved'] ?? 0" />
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <x-stat-card icon="clock" color="amber" label="{{ __('စောင့်ဆိုင်းဆဲ') }}" :value="$statusCounts['pending'] ?? 0" />
+                    <x-stat-card icon="refresh" color="blue" label="{{ __('ဆောင်ရွက်နေဆဲ') }}" :value="$statusCounts['in_progress'] ?? 0" />
+                    <x-stat-card icon="check" color="green" label="{{ __('ပြီးစီးပြီ') }}" :value="$statusCounts['resolved'] ?? 0" />
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex items-center justify-center h-56">
+                    <canvas id="citizen-status-chart"
+                        data-counts="{{ json_encode([
+                            'pending' => $statusCounts['pending'] ?? 0,
+                            'inProgress' => $statusCounts['in_progress'] ?? 0,
+                            'resolved' => $statusCounts['resolved'] ?? 0,
+                            'pendingLabel' => __('စောင့်ဆိုင်းဆဲ'),
+                            'inProgressLabel' => __('ဆောင်ရွက်နေဆဲ'),
+                            'resolvedLabel' => __('ပြီးစီးပြီ'),
+                        ]) }}"></canvas>
+                </div>
             </div>
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -38,4 +52,6 @@
             </div>
         </div>
     </div>
+
+    @vite(['resources/js/charts.js'])
 </x-app-layout>

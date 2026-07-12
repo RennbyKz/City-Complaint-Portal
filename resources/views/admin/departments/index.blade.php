@@ -18,6 +18,7 @@
                     <thead class="bg-gray-50 dark:bg-gray-700/50">
                         <tr>
                             <th class="px-4 py-2 text-left text-gray-500 dark:text-gray-400">{{ __('ဌာနအမည်') }}</th>
+                            <th class="px-4 py-2 text-left text-gray-500 dark:text-gray-400">{{ __('ခရိုင်/မြို့နယ်') }}</th>
                             <th class="px-4 py-2 text-left text-gray-500 dark:text-gray-400">{{ __('ဝန်ထမ်းအရေအတွက်') }}</th>
                             <th class="px-4 py-2 text-left text-gray-500 dark:text-gray-400">{{ __('တိုင်ကြားစာအရေအတွက်') }}</th>
                             <th class="px-4 py-2"></th>
@@ -27,6 +28,7 @@
                         @foreach ($departments as $department)
                             <tr>
                                 <td class="px-4 py-2 text-gray-800 dark:text-gray-200">{{ $department->name }}</td>
+                                <td class="px-4 py-2 text-gray-600 dark:text-gray-400">{{ $department->township ? "{$department->township} ({$department->district})" : '—' }}</td>
                                 <td class="px-4 py-2 text-gray-600 dark:text-gray-400">{{ $department->users_count }}</td>
                                 <td class="px-4 py-2 text-gray-600 dark:text-gray-400">{{ $department->complaints_count }}</td>
                                 <td class="px-4 py-2 text-right">

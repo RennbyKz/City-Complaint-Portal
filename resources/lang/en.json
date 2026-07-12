@@ -155,7 +155,20 @@
     "အမြန်လုပ်ဆောင်ချက်များ": "Quick Actions",
     "ရှင်းလင်းမည်": "Clear filters",
     "တိုင်ကြားသူ တင်ခဲ့သော ဓာတ်ပုံ": "Photo Submitted by Citizen",
+    "တိုင်ကြားသူ တင်ခဲ့သော ဓာတ်ပုံ/ဗီဒီယို": "Photos/Videos Submitted by Citizen",
     "ဓာတ်ပုံ မတင်ခဲ့ပါ": "No photo submitted",
+    "ဓာတ်ပုံ သို့မဟုတ် ဗီဒီယို — အများဆုံး ၅ ခု (မလိုအပ်ပါ)": "Photos or videos — up to 5 (optional)",
+    "ဖိုင်ရွေးထားသည်": "files selected",
+    "ဖိုင်ရွေးရန် နှိပ်ပါ": "Click to select files",
     "ပြင်ဆင်ပြီးကြောင်း သက်သေဓာတ်ပုံ": "Resolution Proof Photo",
-    "ပြီးစီးခြင်း မရှိသေးပါ": "Not resolved yet"
+    "ပြီးစီးခြင်း မရှိသေးပါ": "Not resolved yet",
+    "ခရိုင်ရွေးချယ်ရန်": "Select District",
+    "မြို့နယ်ရွေးချယ်ရန်": "Select Township",
+    "ခရိုင်/မြို့နယ်": "District / Township",
+    "ဌာနအရေအတွက်": "Number of Departments",
+    "ဌာနအလိုက် စွမ်းဆောင်ရည်": "Performance by Department",
+    "ထုတ်ယူသည့်အချိန်": "Generated at",
+    "မြေပုံပေါ်တွင် တည်နေရာညွှန်ပြရန် (မလိုအပ်ပါ)": "Mark location on map (optional)",
+    "တည်နေရာကို သေချာစွာညွှန်ပြလိုပါက မြေပုံပေါ်တွင် နှိပ်ပါ။": "Click on the map to mark the exact location.",
+    "တည်နေရာ မြေပုံ": "Location Map"
 }

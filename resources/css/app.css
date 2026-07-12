@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] {
+    display: none !important;
+}
+
 .swal2-popup {
     font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif;
     border-radius: 1rem !important;
@@ -9,4 +13,9 @@
 
 .swal2-title {
     font-size: 1.125rem !important;
+}
+
+.location-picker-map.leaflet-container {
+    z-index: 0;
+    isolation: isolate;
 }

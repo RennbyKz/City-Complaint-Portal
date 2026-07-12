@@ -49,4 +49,35 @@ async function renderCharts() {
     });
 }
 
+function renderStatusPieChart() {
+    const el = document.getElementById('citizen-status-chart');
+    if (!el) return;
+
+    const counts = JSON.parse(el.dataset.counts);
+    const isDark = document.documentElement.classList.contains('dark');
+
+    new Chart(el, {
+        type: 'doughnut',
+        data: {
+            labels: [counts.pendingLabel, counts.inProgressLabel, counts.resolvedLabel],
+            datasets: [{
+                data: [counts.pending, counts.inProgress, counts.resolved],
+                backgroundColor: [isDark ? '#fbbf24' : '#f59e0b', isDark ? '#3987e5' : '#2a78d6', isDark ? '#4ade80' : '#22c55e'],
+                borderColor: isDark ? '#1f2937' : '#ffffff',
+                borderWidth: 2,
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: isDark ? '#d1d5db' : '#4b5563' },
+                },
+            },
+        },
+    });
+}
+
 renderCharts();
+renderStatusPieChart();

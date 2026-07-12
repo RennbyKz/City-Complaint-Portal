@@ -66,23 +66,8 @@
                         </div>
 
                         <!-- Photos -->
-                        <div class="pt-4 border-t border-gray-100 dark:border-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <dt class="text-gray-400 dark:text-gray-500 text-xs mb-2 flex items-center gap-1.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C3.005 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.755-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" /></svg>
-                                    {{ __('တိုင်ကြားသူ တင်ခဲ့သော ဓာတ်ပုံ') }}
-                                </dt>
-                                @if ($complaint->photo_path)
-                                    <a href="{{ Storage::url($complaint->photo_path) }}" target="_blank" rel="noopener" class="block group">
-                                        <img src="{{ Storage::url($complaint->photo_path) }}" alt="" class="rounded-lg w-full h-48 object-cover ring-1 ring-gray-200 dark:ring-gray-600 group-hover:opacity-90 transition" />
-                                    </a>
-                                @else
-                                    <div class="h-48 rounded-lg bg-gray-50 dark:bg-gray-700/50 flex flex-col items-center justify-center text-gray-300 dark:text-gray-500 gap-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M18 12.75h.008v.008H18v-.008zM4.5 3.75h15a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5V5.25a1.5 1.5 0 011.5-1.5z" /></svg>
-                                        <span class="text-xs">{{ __('ဓာတ်ပုံ မတင်ခဲ့ပါ') }}</span>
-                                    </div>
-                                @endif
-                            </div>
+                        <div class="pt-4 border-t border-gray-100 dark:border-gray-700 space-y-4">
+                            <x-attachment-gallery :complaint="$complaint" />
 
                             <div>
                                 <dt class="text-gray-400 dark:text-gray-500 text-xs mb-2 flex items-center gap-1.5">
@@ -90,16 +75,20 @@
                                     {{ __('ပြင်ဆင်ပြီးကြောင်း သက်သေဓာတ်ပုံ') }}
                                 </dt>
                                 @if ($complaint->resolution_photo_path)
-                                    <a href="{{ Storage::url($complaint->resolution_photo_path) }}" target="_blank" rel="noopener" class="block group">
-                                        <img src="{{ Storage::url($complaint->resolution_photo_path) }}" alt="" class="rounded-lg w-full h-48 object-cover ring-1 ring-green-200 dark:ring-green-800 group-hover:opacity-90 transition" />
+                                    <a href="{{ Storage::url($complaint->resolution_photo_path) }}" target="_blank" rel="noopener" class="block group w-40">
+                                        <img src="{{ Storage::url($complaint->resolution_photo_path) }}" alt="" class="rounded-lg w-full aspect-square object-cover ring-1 ring-green-200 dark:ring-green-800 group-hover:opacity-90 transition" />
                                     </a>
                                 @else
-                                    <div class="h-48 rounded-lg bg-gray-50 dark:bg-gray-700/50 flex flex-col items-center justify-center text-gray-300 dark:text-gray-500 gap-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+                                    <div class="h-24 w-40 rounded-lg bg-gray-50 dark:bg-gray-700/50 flex flex-col items-center justify-center text-gray-300 dark:text-gray-500 gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
                                         <span class="text-xs">{{ __('ပြီးစီးခြင်း မရှိသေးပါ') }}</span>
                                     </div>
                                 @endif
                             </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-100 dark:border-gray-700">
+                            <x-location-map :complaint="$complaint" />
                         </div>
                     </div>
 
@@ -158,4 +147,6 @@
             </div>
         </div>
     </div>
+
+    @vite(['resources/js/location-picker.js'])
 </x-app-layout>

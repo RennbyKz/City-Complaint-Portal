@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ComplaintCategory;
 use App\Enums\ComplaintStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,8 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'user_id',
     'title',
     'description',
-    'category',
+    'category_id',
     'location',
+    'latitude',
+    'longitude',
     'photo_path',
     'status',
     'department_id',
@@ -31,14 +32,20 @@ class Complaint extends Model
     {
         return [
             'status' => ComplaintStatus::class,
-            'category' => ComplaintCategory::class,
             'resolved_at' => 'datetime',
+            'latitude' => 'float',
+            'longitude' => 'float',
         ];
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function department(): BelongsTo
@@ -49,6 +56,11 @@ class Complaint extends Model
     public function statusLogs(): HasMany
     {
         return $this->hasMany(StatusLog::class)->orderBy('created_at');
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(ComplaintAttachment::class)->orderBy('sort_order');
     }
 
     public function rating(): HasOne
@@ -95,5 +107,19 @@ class Complaint extends Model
             $hours < 72 => 'warning',
             default => 'critical',
         };
+    }
+
+    public function thumbnailPath(): ?string
+    {
+        if ($this->photo_path) {
+            return $this->photo_path;
+        }
+
+        return $this->attachments->firstWhere('type', 'photo')?->path;
+    }
+
+    public function hasVideoOnly(): bool
+    {
+        return ! $this->thumbnailPath() && $this->attachments->contains('type', 'video');
     }
 }

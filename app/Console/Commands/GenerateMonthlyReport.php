@@ -20,8 +20,10 @@ class GenerateMonthlyReport extends Command
         $month = (int) ($this->option('month') ?? $date->month);
 
         $stats = $reportService->monthlyDepartmentStats($year, $month);
+        $categoryBreakdown = $reportService->categoryBreakdown($year, $month);
+        $summary = $reportService->summary($year, $month);
 
-        $pdf = Pdf::loadView('admin.reports.monthly-pdf', compact('stats', 'year', 'month'));
+        $pdf = Pdf::loadView('admin.reports.monthly-pdf', compact('stats', 'categoryBreakdown', 'summary', 'year', 'month'));
 
         Storage::disk('public')->put("reports/{$year}-{$month}.pdf", $pdf->output());
 

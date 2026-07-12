@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained(); // တိုင်ကြားသူ
             $table->string('title');
             $table->text('description');
-            $table->string('category');
+            $table->foreignId('category_id')->constrained();
             $table->string('location'); // လိပ်စာ/မှတ်တိုင်
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->string('photo_path')->nullable(); // ဓာတ်ပုံအတွက်
             $table->enum('status', ['pending', 'in_progress', 'resolved'])->default('pending');
             $table->foreignId('department_id')->nullable()->constrained(); // သက်ဆိုင်ရာဌာန

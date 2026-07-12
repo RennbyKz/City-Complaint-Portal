@@ -33,9 +33,13 @@ class ReportController extends Controller
         ]);
 
         $stats = $reportService->monthlyDepartmentStats($validated['year'], $validated['month']);
+        $categoryBreakdown = $reportService->categoryBreakdown($validated['year'], $validated['month']);
+        $summary = $reportService->summary($validated['year'], $validated['month']);
 
         $pdf = Pdf::loadView('admin.reports.monthly-pdf', [
             'stats' => $stats,
+            'categoryBreakdown' => $categoryBreakdown,
+            'summary' => $summary,
             'year' => $validated['year'],
             'month' => $validated['month'],
         ]);

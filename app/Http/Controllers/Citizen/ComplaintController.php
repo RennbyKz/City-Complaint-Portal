@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers\Citizen;
 
-use App\Enums\ComplaintCategory;
 use App\Enums\ComplaintStatus;
 use App\Http\Controllers\Controller;
+use App\Models\CategoryGroup;
 use App\Models\Complaint;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Http\UploadedFile;
 use Illuminate\View\View;
 
 class ComplaintController extends Controller
 {
     public function index(): View
     {
-        $complaints = auth()->user()->complaints()->latest()->paginate(10);
+        $complaints = auth()->user()->complaints()->with('category')->latest()->paginate(10);
 
         return view('citizen.complaints.index', ['complaints' => $complaints]);
     }
 
     public function create(): View
     {
-        return view('citizen.complaints.create', ['categories' => ComplaintCategory::cases()]);
+        $categoryGroups = CategoryGroup::with('categories')->orderBy('sort_order')->get();
+
+        return view('citizen.complaints.create', ['categoryGroups' => $categoryGroups]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -30,23 +32,34 @@ class ComplaintController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'category' => ['required', new Enum(ComplaintCategory::class)],
+            'category_id' => ['required', 'exists:categories,id'],
             'location' => ['required', 'string', 'max:255'],
-            'photo' => ['nullable', 'image', 'max:5120'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'attachments' => ['nullable', 'array', 'max:5'],
+            'attachments.*' => ['file', 'mimes:jpg,jpeg,png,webp,mp4,mov,webm', 'max:51200'],
         ]);
-
-        $photoPath = $request->hasFile('photo')
-            ? $request->file('photo')->store('complaints', 'public')
-            : null;
 
         $complaint = auth()->user()->complaints()->create([
             'title' => $validated['title'],
             'description' => $validated['description'],
-            'category' => $validated['category'],
+            'category_id' => $validated['category_id'],
             'location' => $validated['location'],
-            'photo_path' => $photoPath,
+            'latitude' => $validated['latitude'] ?? null,
+            'longitude' => $validated['longitude'] ?? null,
             'status' => ComplaintStatus::Pending,
         ]);
+
+        foreach ($request->file('attachments', []) as $index => $file) {
+            /** @var UploadedFile $file */
+            $isVideo = str_starts_with($file->getMimeType(), 'video/');
+
+            $complaint->attachments()->create([
+                'path' => $file->store('complaints', 'public'),
+                'type' => $isVideo ? 'video' : 'photo',
+                'sort_order' => $index,
+            ]);
+        }
 
         return redirect()->route('citizen.complaints.show', $complaint)
             ->with('status', __('တိုင်ကြားစာ တင်သွင်းပြီးပါပြီ။'));
@@ -56,7 +69,7 @@ class ComplaintController extends Controller
     {
         $this->authorize('view', $complaint);
 
-        $complaint->load(['department', 'statusLogs.changedBy', 'rating']);
+        $complaint->load(['department', 'category', 'attachments', 'statusLogs.changedBy', 'rating']);
 
         return view('citizen.complaints.show', ['complaint' => $complaint]);
     }

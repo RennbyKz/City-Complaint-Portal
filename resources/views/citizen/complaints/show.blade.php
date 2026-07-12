@@ -35,12 +35,7 @@
                     <dd class="text-gray-800 dark:text-gray-200 mt-1">{{ $complaint->description }}</dd>
                 </div>
 
-                @if ($complaint->photo_path)
-                    <div>
-                        <dt class="text-gray-500 dark:text-gray-400 text-sm mb-1">{{ __('ဓာတ်ပုံ') }}</dt>
-                        <img src="{{ Storage::url($complaint->photo_path) }}" alt="" class="rounded-md max-h-64" />
-                    </div>
-                @endif
+                <x-attachment-gallery :complaint="$complaint" />
 
                 @if ($complaint->resolution_photo_path)
                     <div>
@@ -48,6 +43,8 @@
                         <img src="{{ Storage::url($complaint->resolution_photo_path) }}" alt="" class="rounded-md max-h-64" />
                     </div>
                 @endif
+
+                <x-location-map :complaint="$complaint" />
             </div>
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -102,4 +99,6 @@
             @endif
         </div>
     </div>
+
+    @vite(['resources/js/location-picker.js'])
 </x-app-layout>

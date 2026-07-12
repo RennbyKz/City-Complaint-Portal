@@ -32,7 +32,7 @@ class ComplaintController extends Controller
     {
         $this->authorize('view', $complaint);
 
-        $complaint->load(['user', 'statusLogs.changedBy', 'rating']);
+        $complaint->load(['user', 'category', 'attachments', 'statusLogs.changedBy', 'rating']);
 
         return view('department.complaints.show', ['complaint' => $complaint]);
     }

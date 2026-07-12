@@ -33,9 +33,9 @@
                     <dd class="text-gray-800 dark:text-gray-200 mt-1">{{ $complaint->description }}</dd>
                 </div>
 
-                @if ($complaint->photo_path)
-                    <img src="{{ Storage::url($complaint->photo_path) }}" alt="" class="rounded-md max-h-64" />
-                @endif
+                <x-attachment-gallery :complaint="$complaint" />
+
+                <x-location-map :complaint="$complaint" />
             </div>
 
             @if ($complaint->status->value === 'pending')
@@ -88,4 +88,6 @@
             </div>
         </div>
     </div>
+
+    @vite(['resources/js/location-picker.js'])
 </x-app-layout>
